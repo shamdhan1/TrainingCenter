@@ -1,59 +1,71 @@
-<div class="app-layout">
+<div class="app-container">
 
   <!-- ================================
-       SIDEBAR
+       FULL-WIDTH HEADER (Dark Theme)
        ================================ -->
-  <aside class="sidebar">
-
-    <!-- Brand -->
-    <div class="brand">
+  <header class="app-header">
+    <div class="header-left">
       <span class="brand-icon">🎓</span>
-      <span class="brand-text">Student System</span>
+      <span class="app-title">Student Management System</span>
+      <span class="breadcrumb-separator">/</span>
+      <span class="current-screen">{{ currentScreen() }}</span>
     </div>
-
-    <!-- Navigation -->
-    <nav class="sidebar-nav">
-
-      <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
-        <span class="nav-text">Dashboard</span>
-      </a>
-
-      <a routerLink="/admissions" routerLinkActive="active" class="nav-item">
-        <span class="nav-text">Admissions</span>
-      </a>
-
-      <a routerLink="/centers" routerLinkActive="active" class="nav-item">
-        <span class="nav-text">Training Centers</span>
-      </a>
-
-      <a routerLink="/courses" routerLinkActive="active" class="nav-item">
-        <span class="nav-text">Courses</span>
-      </a>
-
-      <a routerLink="/trainers" routerLinkActive="active" class="nav-item">
-        <span class="nav-text">Trainers</span>
-      </a>
-
-      <a routerLink="/students" routerLinkActive="active" class="nav-item">
-        <span class="nav-text">Students</span>
-      </a>
-
-      <a routerLink="/batches" routerLinkActive="active" class="nav-item">
-        <span class="nav-text">Batches</span>
-      </a>
-
-    </nav>
-
-  </aside>
-
+    <div class="header-right">
+      <span class="status-indicator">
+        <span class="status-dot"></span>
+        Admin Login
+      </span>
+    </div>
+  </header>
 
   <!-- ================================
-       MAIN CONTENT
+       BODY CONTAINER (Sidebar + Main Content)
        ================================ -->
-  <main class="main-content">
+  <div class="app-body">
 
-    <router-outlet></router-outlet>
+    <!-- Sidebar -->
+    <aside class="sidebar">
 
-  </main>
+      <!-- Navigation -->
+      <nav class="sidebar-nav">
+
+        <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
+          <span class="nav-text">Dashboard</span>
+        </a>
+
+        <a routerLink="/admissions" routerLinkActive="active" class="nav-item">
+          <span class="nav-text">Student Admissions</span>
+        </a>
+
+        <a routerLink="/centers" routerLinkActive="active" class="nav-item">
+          <span class="nav-text">Training Centers</span>
+        </a>
+
+        <a routerLink="/courses" routerLinkActive="active" class="nav-item">
+          <span class="nav-text">Courses</span>
+        </a>
+
+        <a routerLink="/trainers" routerLinkActive="active" class="nav-item">
+          <span class="nav-text">Trainers</span>
+        </a>
+
+        <a routerLink="/students" routerLinkActive="active" class="nav-item">
+          <span class="nav-text">Students</span>
+        </a>
+
+        <a routerLink="/batches" routerLinkActive="active" class="nav-item">
+          <span class="nav-text">Batches</span>
+        </a>
+
+      </nav>
+
+    </aside>
+
+    <!-- Scrollable Main Content -->
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
 
 </div>

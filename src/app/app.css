@@ -1,343 +1,264 @@
-/* =========================================================
-   MAIN APPLICATION LAYOUT
-   ========================================================= */
-
-.app-layout {
-    display: flex;
-    width: 100%;
-    height: 100vh;
-    min-height: 100vh;
-
-    font-family:
-        Inter,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-
-    background: #f8fafc;
-
-    overflow: hidden;
-}
-
-
-/* =========================================================
-   SIDEBAR
-   ========================================================= */
-
-.app-layout>aside {
-    width: 260px !important;
-    height: 100vh;
-
-    flex: 0 0 260px;
-
-    box-sizing: border-box;
-
-    background:
-        linear-gradient(180deg,
-            #0f172a 0%,
-            #111827 55%,
-            #0b1120 100%) !important;
-
-    color: #ffffff;
-
-    padding: 24px 14px !important;
-
+.app-container {
     display: flex;
     flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #f8fafc;
+}
 
-    position: relative;
-
-    overflow-y: auto;
-    overflow-x: hidden;
-
+/* =======================================================
+   FULL-WIDTH STICKY HEADER (Dark Slate Theme)
+   ======================================================= */
+.app-header {
+    height: 70px;
+    background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px !important;
     flex-shrink: 0;
-
-    border-right: 1px solid rgba(255, 255, 255, 0.06);
-
-    box-shadow:
-        8px 0 30px rgba(15, 23, 42, 0.08);
-
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
     z-index: 100;
 }
 
-
-/* =========================================================
-   SIDEBAR SCROLLBAR
-   ========================================================= */
-
-.app-layout>aside::-webkit-scrollbar {
-    width: 6px;
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
 }
 
-.app-layout>aside::-webkit-scrollbar-track {
-    background: transparent;
+.header-left .brand-icon {
+    font-size: 1.4rem;
 }
 
-.app-layout>aside::-webkit-scrollbar-thumb {
-    background: rgba(129, 140, 248, 0.35);
+.header-left .app-title {
+    font-size: 1.15rem;
+    font-weight: 850;
+    color: #a5b4fc !important; /* Premium light indigo */
+    letter-spacing: -0.5px;
+    text-shadow: 0 0 20px rgba(129, 140, 248, 0.2);
+}
+
+.header-left .breadcrumb-separator {
+    color: #475569;
+    font-size: 1rem;
+    user-select: none;
+}
+
+.header-left .current-screen {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #c7d2fe;
+    background: rgba(99, 102, 241, 0.25);
+    padding: 6px 14px;
     border-radius: 20px;
-}
-
-.app-layout>aside::-webkit-scrollbar-thumb:hover {
-    background: rgba(129, 140, 248, 0.7);
-}
-
-
-/* Firefox scrollbar */
-
-.app-layout>aside {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(129, 140, 248, 0.45) transparent;
-}
-
-
-/* =========================================================
-   BRAND
-   ========================================================= */
-
-.app-layout .brand {
-    font-size: 1.25rem !important;
-
-    font-weight: 750 !important;
-
-    color: #a5b4fc !important;
-
-    margin: 2px 8px 30px !important;
-
-    letter-spacing: -0.5px !important;
-
-    white-space: nowrap;
-
-    display: flex;
-    align-items: center;
-
-    min-height: 34px;
-
-    text-shadow:
-        0 0 20px rgba(129, 140, 248, 0.18);
-}
-
-
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
-
-.app-layout nav {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 7px !important;
-
-    width: 100%;
-}
-
-
-/* =========================================================
-   NAVIGATION LINKS
-   ========================================================= */
-
-.app-layout nav a {
-    position: relative;
-
-    display: flex !important;
-
-    align-items: center;
-
-    width: 100%;
-
-    min-height: 46px;
-
-    box-sizing: border-box;
-
-    padding: 12px 16px !important;
-
-    color: #94a3b8 !important;
-
-    background: transparent;
-
-    text-decoration: none;
-
-    border-radius: 10px;
-
-    font-size: 0.93rem !important;
-
-    font-weight: 500 !important;
-
     letter-spacing: 0.1px;
+    border: 1px solid rgba(165, 180, 252, 0.15);
+}
 
-    transition:
-        background-color 0.2s ease,
-        color 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+.header-right {
+    display: flex;
+    align-items: center;
+}
 
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #34d399;
+    background: rgba(52, 211, 153, 0.1);
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(52, 211, 153, 0.25);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    position: relative;
+    display: inline-block;
+    animation: status-pulse 1.8s infinite ease-in-out;
+}
+
+@keyframes status-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+        transform: scale(0.95);
+    }
+    70% {
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+        transform: scale(1.15);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+        transform: scale(0.95);
+    }
+}
+
+/* =======================================================
+   BODY WRAPPER (Sidebar + Scrollable Area)
+   ======================================================= */
+.app-body {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    overflow: hidden;
+    width: 100%;
+}
+
+.sidebar {
+    width: 260px !important;
+    height: 100%;
+    flex: 0 0 260px;
+    box-sizing: border-box;
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%) !important; /* Matching Blackish sidebar options */
+    color: #ffffff;
+    padding: 24px 14px !important;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-y: auto !important;
+    overflow-x: hidden;
+    flex-shrink: 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 8px 0 30px rgba(15, 23, 42, 0.08);
+    z-index: 90;
+    scrollbar-width: none !important; /* Firefox: hide scrollbar */
+    -ms-overflow-style: none !important;  /* IE/Edge: hide scrollbar */
+}
+
+.sidebar::-webkit-scrollbar {
+    display: none !important; /* Chrome/Safari: hide scrollbar */
+    width: 0 !important;
+    height: 0 !important;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 7px !important;
+    width: 100%;
+}
+
+.sidebar-nav a {
+    position: relative;
+    display: flex !important;
+    align-items: center;
+    width: 100%;
+    min-height: 46px;
+    box-sizing: border-box;
+    padding: 12px 16px !important;
+    color: #94a3b8 !important;
+    background: transparent;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 0.93rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.1px;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
-
     white-space: nowrap;
 }
 
-
-/* =========================================================
-   HOVER
-   ========================================================= */
-
-.app-layout nav a:hover:not(.active) {
+.sidebar-nav a:hover:not(.active) {
     color: #e2e8f0 !important;
-
-    background:
-        rgba(255, 255, 255, 0.055) !important;
-
+    background: rgba(255, 255, 255, 0.055) !important;
     transform: translateX(3px);
-
-    box-shadow:
-        inset 3px 0 0 rgba(129, 140, 248, 0.35);
+    box-shadow: inset 3px 0 0 rgba(129, 140, 248, 0.35);
 }
 
-
-/* =========================================================
-   ACTIVE LINK
-   ========================================================= */
-
-.app-layout nav a.active {
+.sidebar-nav a.active {
     color: #c7d2fe !important;
-
-    background:
-        linear-gradient(90deg,
-            rgba(99, 102, 241, 0.20),
-            rgba(99, 102, 241, 0.08)) !important;
-
+    background: linear-gradient(90deg, rgba(99, 102, 241, 0.20), rgba(99, 102, 241, 0.08)) !important;
     font-weight: 650 !important;
-
-    box-shadow:
-        inset 3px 0 0 #818cf8,
-        0 6px 18px rgba(79, 70, 229, 0.08);
-
+    box-shadow: inset 3px 0 0 #818cf8, 0 6px 18px rgba(79, 70, 229, 0.08);
     transform: translateX(0);
 }
 
-
-/* =========================================================
-   ACTIVE LINK GLOW
-   ========================================================= */
-
-.app-layout nav a.active::after {
+.sidebar-nav a.active::after {
     content: "";
-
     position: absolute;
-
     right: 10px;
-
     width: 6px;
     height: 6px;
-
     border-radius: 50%;
-
     background: #818cf8;
-
-    box-shadow:
-        0 0 8px rgba(129, 140, 248, 0.8),
-        0 0 14px rgba(129, 140, 248, 0.45);
+    box-shadow: 0 0 8px rgba(129, 140, 248, 0.8), 0 0 14px rgba(129, 140, 248, 0.45);
 }
 
-
-/* =========================================================
-   MAIN CONTENT
-   ========================================================= */
-
-.app-layout>main {
+/* =======================================================
+   MAIN SCROLLABLE CONTENT
+   ======================================================= */
+.main-content {
     flex: 1;
-
     min-width: 0;
-
-    min-height: 100vh;
-
-    height: 100vh;
-
-    display: flex;
-
-    flex-direction: column;
-
-    overflow-y: auto;
-
+    overflow-y: auto !important;
     overflow-x: hidden;
-
     background: #f8fafc;
 }
 
-
-/* =========================================================
-   MAIN CONTENT SCROLLBAR
-   ========================================================= */
-
-.app-layout>main::-webkit-scrollbar {
+.main-content::-webkit-scrollbar {
     width: 8px;
 }
 
-.app-layout>main::-webkit-scrollbar-track {
+.main-content::-webkit-scrollbar-track {
     background: #f8fafc;
 }
 
-.app-layout>main::-webkit-scrollbar-thumb {
+.main-content::-webkit-scrollbar-thumb {
     background: #cbd5e1;
-
     border-radius: 20px;
 }
 
-.app-layout>main::-webkit-scrollbar-thumb:hover {
+.main-content::-webkit-scrollbar-thumb:hover {
     background: #94a3b8;
 }
 
-
-/* =========================================================
-   MOBILE / SMALL SCREEN
-   ========================================================= */
-
+/* =======================================================
+   MEDIA QUERIES FOR RESPONSIVENESS
+   ======================================================= */
 @media (max-width: 768px) {
-
-    .app-layout>aside {
+    .sidebar {
         width: 220px !important;
-
         flex-basis: 220px;
-
         padding: 20px 10px !important;
     }
 
-    .app-layout .brand {
-        font-size: 1.05rem !important;
-
-        margin-left: 8px !important;
-    }
-
-    .app-layout nav a {
+    .sidebar-nav a {
         padding: 11px 13px !important;
-
         font-size: 0.88rem !important;
+    }
+    
+    .header-left .app-title {
+        font-size: 1rem;
     }
 }
 
-
-/* =========================================================
-   VERY SMALL SCREEN
-   ========================================================= */
-
 @media (max-width: 520px) {
-
-    .app-layout>aside {
+    .sidebar {
         width: 190px !important;
-
         flex-basis: 190px;
     }
 
-    .app-layout .brand {
-        font-size: 0.95rem !important;
-    }
-
-    .app-layout nav a {
+    .sidebar-nav a {
         font-size: 0.82rem !important;
-
         padding: 10px 11px !important;
+    }
+    
+    .header-left .app-title {
+        font-size: 0.9rem;
+    }
+    
+    .breadcrumb-separator, 
+    .current-screen {
+        display: none !important;
     }
 }
