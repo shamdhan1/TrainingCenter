@@ -1,48 +1,59 @@
-<div class="app-layout" style="display: flex; min-height: 100vh; font-family: sans-serif; background-color: #f8fafc;">
-  
-  <!-- Sidebar -->
-  <aside style="width: 260px; background-color: #0f172a; color: white; padding: 24px; display: flex; flex-direction: column; flex-shrink: 0;">
-    <div class="brand" style="font-size: 1.2rem; font-weight: 700; color: #818cf8; margin-bottom: 32px; letter-spacing: -0.3px;">
-      🎓 Student System
-    </div>
-    
-    <nav style="display: flex; flex-direction: column; gap: 6px;">
-      <a routerLink="/dashboard" routerLinkActive="active" style="display: flex; align-items: center; padding: 12px 16px; color: #94a3b8; text-decoration: none; border-radius: 8px; font-weight: 500; font-size: 0.9rem; transition: all 0.2s;">
-        Dashboard
-      </a>
-      <a routerLink="/centers" routerLinkActive="active" style="display: flex; align-items: center; padding: 12px 16px; color: #94a3b8; text-decoration: none; border-radius: 8px; font-weight: 500; font-size: 0.9rem; transition: all 0.2s;">
-        Training Centers
-      </a>
-      <a routerLink="/courses" routerLinkActive="active" style="display: flex; align-items: center; padding: 12px 16px; color: #94a3b8; text-decoration: none; border-radius: 8px; font-weight: 500; font-size: 0.9rem; transition: all 0.2s;">
-        Courses
-      </a>
-      <a routerLink="/trainers" routerLinkActive="active" style="display: flex; align-items: center; padding: 12px 16px; color: #94a3b8; text-decoration: none; border-radius: 8px; font-weight: 500; font-size: 0.9rem; transition: all 0.2s;">
-        Trainers
-      </a>
-      <a routerLink="/students" routerLinkActive="active" style="display: flex; align-items: center; padding: 12px 16px; color: #94a3b8; text-decoration: none; border-radius: 8px; font-weight: 500; font-size: 0.9rem; transition: all 0.2s;">
-        Students
-      </a>
-      <a routerLink="/batches" routerLinkActive="active" style="display: flex; align-items: center; padding: 12px 16px; color: #94a3b8; text-decoration: none; border-radius: 8px; font-weight: 500; font-size: 0.9rem; transition: all 0.2s;">
-        Batches
-      </a>
-    </nav>
-  </aside>
-  
-  <!-- Main Content -->
-  <main style="flex: 1; display: flex; flex-direction: column; overflow-y: auto;">
-    <router-outlet></router-outlet>
-  </main>
-  
-</div>
+<div class="app-layout">
 
-<style>
-  a.active {
-    background-color: rgba(99, 102, 241, 0.1) !important;
-    color: #818cf8 !important;
-    font-weight: 600 !important;
-  }
-  a:hover:not(.active) {
-    color: #ffffff !important;
-    background-color: rgba(255, 255, 255, 0.03) !important;
-  }
-</style>
+  <!-- ================================
+       SIDEBAR
+       ================================ -->
+  <aside class="sidebar">
+
+    <!-- Brand -->
+    <div class="brand">
+      <span class="brand-icon">🎓</span>
+      <span class="brand-text">Student System</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sidebar-nav">
+
+      <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
+        <span class="nav-text">Dashboard</span>
+      </a>
+
+      <a routerLink="/admissions" routerLinkActive="active" class="nav-item">
+        <span class="nav-text">Admissions</span>
+      </a>
+
+      <a routerLink="/centers" routerLinkActive="active" class="nav-item">
+        <span class="nav-text">Training Centers</span>
+      </a>
+
+      <a routerLink="/courses" routerLinkActive="active" class="nav-item">
+        <span class="nav-text">Courses</span>
+      </a>
+
+      <a routerLink="/trainers" routerLinkActive="active" class="nav-item">
+        <span class="nav-text">Trainers</span>
+      </a>
+
+      <a routerLink="/students" routerLinkActive="active" class="nav-item">
+        <span class="nav-text">Students</span>
+      </a>
+
+      <a routerLink="/batches" routerLinkActive="active" class="nav-item">
+        <span class="nav-text">Batches</span>
+      </a>
+
+    </nav>
+
+  </aside>
+
+
+  <!-- ================================
+       MAIN CONTENT
+       ================================ -->
+  <main class="main-content">
+
+    <router-outlet></router-outlet>
+
+  </main>
+
+</div>

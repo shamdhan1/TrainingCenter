@@ -1,0 +1,343 @@
+/* =========================================================
+   MAIN APPLICATION LAYOUT
+   ========================================================= */
+
+.app-layout {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+
+    font-family:
+        Inter,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    background: #f8fafc;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.app-layout>aside {
+    width: 260px !important;
+    height: 100vh;
+
+    flex: 0 0 260px;
+
+    box-sizing: border-box;
+
+    background:
+        linear-gradient(180deg,
+            #0f172a 0%,
+            #111827 55%,
+            #0b1120 100%) !important;
+
+    color: #ffffff;
+
+    padding: 24px 14px !important;
+
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    flex-shrink: 0;
+
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+
+    box-shadow:
+        8px 0 30px rgba(15, 23, 42, 0.08);
+
+    z-index: 100;
+}
+
+
+/* =========================================================
+   SIDEBAR SCROLLBAR
+   ========================================================= */
+
+.app-layout>aside::-webkit-scrollbar {
+    width: 6px;
+}
+
+.app-layout>aside::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.app-layout>aside::-webkit-scrollbar-thumb {
+    background: rgba(129, 140, 248, 0.35);
+    border-radius: 20px;
+}
+
+.app-layout>aside::-webkit-scrollbar-thumb:hover {
+    background: rgba(129, 140, 248, 0.7);
+}
+
+
+/* Firefox scrollbar */
+
+.app-layout>aside {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(129, 140, 248, 0.45) transparent;
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.app-layout .brand {
+    font-size: 1.25rem !important;
+
+    font-weight: 750 !important;
+
+    color: #a5b4fc !important;
+
+    margin: 2px 8px 30px !important;
+
+    letter-spacing: -0.5px !important;
+
+    white-space: nowrap;
+
+    display: flex;
+    align-items: center;
+
+    min-height: 34px;
+
+    text-shadow:
+        0 0 20px rgba(129, 140, 248, 0.18);
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.app-layout nav {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px !important;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   NAVIGATION LINKS
+   ========================================================= */
+
+.app-layout nav a {
+    position: relative;
+
+    display: flex !important;
+
+    align-items: center;
+
+    width: 100%;
+
+    min-height: 46px;
+
+    box-sizing: border-box;
+
+    padding: 12px 16px !important;
+
+    color: #94a3b8 !important;
+
+    background: transparent;
+
+    text-decoration: none;
+
+    border-radius: 10px;
+
+    font-size: 0.93rem !important;
+
+    font-weight: 500 !important;
+
+    letter-spacing: 0.1px;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.app-layout nav a:hover:not(.active) {
+    color: #e2e8f0 !important;
+
+    background:
+        rgba(255, 255, 255, 0.055) !important;
+
+    transform: translateX(3px);
+
+    box-shadow:
+        inset 3px 0 0 rgba(129, 140, 248, 0.35);
+}
+
+
+/* =========================================================
+   ACTIVE LINK
+   ========================================================= */
+
+.app-layout nav a.active {
+    color: #c7d2fe !important;
+
+    background:
+        linear-gradient(90deg,
+            rgba(99, 102, 241, 0.20),
+            rgba(99, 102, 241, 0.08)) !important;
+
+    font-weight: 650 !important;
+
+    box-shadow:
+        inset 3px 0 0 #818cf8,
+        0 6px 18px rgba(79, 70, 229, 0.08);
+
+    transform: translateX(0);
+}
+
+
+/* =========================================================
+   ACTIVE LINK GLOW
+   ========================================================= */
+
+.app-layout nav a.active::after {
+    content: "";
+
+    position: absolute;
+
+    right: 10px;
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #818cf8;
+
+    box-shadow:
+        0 0 8px rgba(129, 140, 248, 0.8),
+        0 0 14px rgba(129, 140, 248, 0.45);
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.app-layout>main {
+    flex: 1;
+
+    min-width: 0;
+
+    min-height: 100vh;
+
+    height: 100vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
+
+    background: #f8fafc;
+}
+
+
+/* =========================================================
+   MAIN CONTENT SCROLLBAR
+   ========================================================= */
+
+.app-layout>main::-webkit-scrollbar {
+    width: 8px;
+}
+
+.app-layout>main::-webkit-scrollbar-track {
+    background: #f8fafc;
+}
+
+.app-layout>main::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+
+    border-radius: 20px;
+}
+
+.app-layout>main::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+
+/* =========================================================
+   MOBILE / SMALL SCREEN
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .app-layout>aside {
+        width: 220px !important;
+
+        flex-basis: 220px;
+
+        padding: 20px 10px !important;
+    }
+
+    .app-layout .brand {
+        font-size: 1.05rem !important;
+
+        margin-left: 8px !important;
+    }
+
+    .app-layout nav a {
+        padding: 11px 13px !important;
+
+        font-size: 0.88rem !important;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL SCREEN
+   ========================================================= */
+
+@media (max-width: 520px) {
+
+    .app-layout>aside {
+        width: 190px !important;
+
+        flex-basis: 190px;
+    }
+
+    .app-layout .brand {
+        font-size: 0.95rem !important;
+    }
+
+    .app-layout nav a {
+        font-size: 0.82rem !important;
+
+        padding: 10px 11px !important;
+    }
+}

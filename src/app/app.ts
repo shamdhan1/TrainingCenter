@@ -8,5 +8,5 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './app.html',
 })
 export class App {
-  protected readonly title = signal('frontend');
+  readonly title = signal('frontend');
 }
