@@ -1,0 +1,128 @@
+<div class="registration-page">
+    <div class="page-header">
+        <div>
+            <h1>Trainer Registration</h1>
+            <p>Register a new faculty member and create their portal user account.</p>
+        </div>
+        <button type="button" class="secondary-btn" (click)="resetForm()">
+            Reset Form
+        </button>
+    </div>
+
+    <form class="registration-form" (ngSubmit)="submitRegistration()">
+        <!-- SECTION 1: ACCOUNT DETAILS -->
+        <section class="form-section">
+            <div class="section-title">
+                <span class="section-number">01</span>
+                <div>
+                    <h2>Portal User Account</h2>
+                    <p>Credentials for portal login access</p>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Username *</label>
+                    <input type="text" name="username" [(ngModel)]="trainer.username" placeholder="Enter username (min 4 characters)" required minlength="4">
+                </div>
+
+                <div class="form-group">
+                    <label>Password *</label>
+                    <input type="password" name="password" [(ngModel)]="trainer.password" placeholder="Enter secure password" required minlength="6">
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: PERSONAL & CONTACT INFORMATION -->
+        <section class="form-section">
+            <div class="section-title">
+                <span class="section-number">02</span>
+                <div>
+                    <h2>Trainer Profile Information</h2>
+                    <p>Contact details and administrative mapping</p>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" name="name" [(ngModel)]="trainer.name" placeholder="Enter full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address *</label>
+                    <input type="email" name="email" [(ngModel)]="trainer.email" placeholder="Enter email address" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Mobile Number *</label>
+                    <input type="text" name="mobile" [(ngModel)]="trainer.mobile" placeholder="Enter mobile number" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Training Center *</label>
+                    <select name="centerId" [(ngModel)]="trainer.centerId" required>
+                        <option [value]="null">Select Center</option>
+                        <option *ngFor="let center of centers()" [value]="center.centerId">
+                            {{ center.name }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: PROFESSIONAL EXPERIENCE & QUALIFICATIONS -->
+        <section class="form-section">
+            <div class="section-title">
+                <span class="section-number">03</span>
+                <div>
+                    <h2>Professional Details</h2>
+                    <p>Experience, employee code and joining info</p>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Employee Code *</label>
+                    <input type="text" name="employeeCode" [(ngModel)]="trainer.employeeCode" placeholder="Enter employee code" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Specialization</label>
+                    <input type="text" name="specialization" [(ngModel)]="trainer.specialization" placeholder="e.g. Java, Python, Angular">
+                </div>
+
+                <div class="form-group">
+                    <label>Qualification</label>
+                    <input type="text" name="qualification" [(ngModel)]="trainer.qualification" placeholder="e.g. B.Tech, M.Tech, MCA">
+                </div>
+
+                <div class="form-group">
+                    <label>Experience (Years)</label>
+                    <input type="number" name="experienceYears" [(ngModel)]="trainer.experienceYears" placeholder="e.g. 5" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label>Joining Date</label>
+                    <input type="date" name="joiningDate" [(ngModel)]="trainer.joiningDate">
+                </div>
+
+                <div class="form-group">
+                    <label>Status *</label>
+                    <select name="status" [(ngModel)]="trainer.status" required>
+                        <option value="ACTIVE">ACTIVE</option>
+                        <option value="PENDING">PENDING</option>
+                        <option value="INACTIVE">INACTIVE</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUBMIT ACTIONS -->
+        <div class="form-actions">
+            <button type="submit" class="submit-btn" [disabled]="loading()">
+                {{ loading() ? 'Registering...' : 'Register Trainer' }}
+            </button>
+        </div>
+    </form>
+</div>

@@ -6,6 +6,7 @@ import { TrainersComponent } from './components/trainers/trainers';
 import { StudentsComponent } from './components/students/students';
 import { BatchesComponent } from './components/batches/batches';
 import { AdmissionsComponent } from './components/admissions/admissions';
+import { TrainerRegistrationComponent } from './components/trainer-registration/trainer-registration';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -15,5 +16,6 @@ export const routes: Routes = [
   { path: 'trainers', component: TrainersComponent },
   { path: 'students', component: StudentsComponent },
   { path: 'batches', component: BatchesComponent },
-  { path: 'admissions', component: AdmissionsComponent }
+  { path: 'admissions', component: AdmissionsComponent },
+  { path: 'trainer-registration', component: TrainerRegistrationComponent }
 ];
