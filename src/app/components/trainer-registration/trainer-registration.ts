@@ -36,7 +36,33 @@ export class TrainerRegistrationComponent implements OnInit {
     experienceYears: null as number | null,
     joiningDate: this.getToday(),
     centerId: null as number | null,
-    status: 'ACTIVE'
+    status: 'ACTIVE',
+    
+    // Identity Details
+    gender: '',
+    dateOfBirth: '',
+    aadhaarNo: '',
+    panNo: '',
+
+    // Contact Details
+    alternativeMobile: '',
+    address: '',
+    city: '',
+    state: '',
+    pincode: '',
+
+    // Employment Details
+    designation: '',
+    contractType: 'FULL_TIME',
+    salary: null as number | null,
+
+    // Payroll Bank Details
+    bankName: '',
+    bankAccountNumber: '',
+    ifscCode: '',
+
+    // Profile Biography
+    bio: ''
   };
 
   ngOnInit(): void {
@@ -76,7 +102,7 @@ export class TrainerRegistrationComponent implements OnInit {
       !this.trainer.centerId ||
       !this.trainer.employeeCode
     ) {
-      alert('Please fill all required fields.');
+      alert('Please fill all required fields marked with *.');
       return;
     }
 
@@ -85,13 +111,14 @@ export class TrainerRegistrationComponent implements OnInit {
     const request = {
       ...this.trainer,
       centerId: Number(this.trainer.centerId),
-      experienceYears: this.trainer.experienceYears ? Number(this.trainer.experienceYears) : null
+      experienceYears: this.trainer.experienceYears ? Number(this.trainer.experienceYears) : null,
+      salary: this.trainer.salary ? Number(this.trainer.salary) : null
     };
 
     this.apiService.post<any>('/api/v1/trainers/register', request).subscribe({
       next: (response) => {
         console.log('Trainer registered successfully', response);
-        alert(`Trainer registered successfully!\nEmployee Code: ${response.data.employeeCode}`);
+        alert(`Trainer profile registered successfully!\nEmployee Code: ${response.data.employeeCode}`);
         this.router.navigate(['/trainers']);
       },
       error: (error) => {
@@ -119,7 +146,23 @@ export class TrainerRegistrationComponent implements OnInit {
       experienceYears: null,
       joiningDate: this.getToday(),
       centerId: null,
-      status: 'ACTIVE'
+      status: 'ACTIVE',
+      gender: '',
+      dateOfBirth: '',
+      aadhaarNo: '',
+      panNo: '',
+      alternativeMobile: '',
+      address: '',
+      city: '',
+      state: '',
+      pincode: '',
+      designation: '',
+      contractType: 'FULL_TIME',
+      salary: null,
+      bankName: '',
+      bankAccountNumber: '',
+      ifscCode: '',
+      bio: ''
     };
     this.generateEmployeeCode();
     this.submitted.set(false);
