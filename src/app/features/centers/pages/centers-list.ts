@@ -11,8 +11,9 @@ import { Center } from '../models/center.model';
   styleUrl: './centers-list.css'
 })
 export class CentersListComponent implements OnInit {
+
   private centerService = inject(CenterService);
-  
+
   protected centers = signal<Center[]>([]);
   protected loading = signal<boolean>(true);
 

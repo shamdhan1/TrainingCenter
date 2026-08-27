@@ -7,15 +7,19 @@ import { StudentsComponent } from './components/students/students';
 import { BatchesComponent } from './components/batches/batches';
 import { AdmissionsComponent } from './components/admissions/admissions';
 import { TrainerRegistrationComponent } from './components/trainer-registration/trainer-registration';
+import { LoginComponent } from './components/login/login';
+import { authGuard } from './services/auth.guard';
+import { loginGuard } from './services/login.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'centers', component: CentersListComponent },
-  { path: 'courses', component: CoursesComponent },
-  { path: 'trainers', component: TrainersComponent },
-  { path: 'students', component: StudentsComponent },
-  { path: 'batches', component: BatchesComponent },
-  { path: 'admissions', component: AdmissionsComponent },
-  { path: 'trainer-registration', component: TrainerRegistrationComponent }
+  { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
+  { path: 'centers', component: CentersListComponent, canActivate: [authGuard] },
+  { path: 'courses', component: CoursesComponent, canActivate: [authGuard] },
+  { path: 'trainers', component: TrainersComponent, canActivate: [authGuard] },
+  { path: 'students', component: StudentsComponent, canActivate: [authGuard] },
+  { path: 'batches', component: BatchesComponent, canActivate: [authGuard] },
+  { path: 'admissions', component: AdmissionsComponent, canActivate: [authGuard] },
+  { path: 'trainer-registration', component: TrainerRegistrationComponent, canActivate: [authGuard] }
 ];

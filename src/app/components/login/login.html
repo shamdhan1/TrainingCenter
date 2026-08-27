@@ -1,0 +1,83 @@
+<div class="login-wrapper">
+  <!-- Glowing background blobs -->
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
+  <div class="bg-blob blob-3"></div>
+
+  <div class="login-container">
+    <div class="brand-showcase">
+      <div class="brand-logo">🎓</div>
+      <h1 class="brand-title">Student Management System</h1>
+      <p class="brand-tagline">Manage courses, admissions, trainers, and centers in one premium workspace.</p>
+    </div>
+
+    <div class="login-card">
+      <div class="card-header">
+        <h2>Welcome Back</h2>
+        <p>Sign in to access your administrative dashboard</p>
+      </div>
+
+      <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="login-form">
+        <!-- Error Alert -->
+        @if (errorMessage()) {
+          <div class="error-alert">
+            <span class="error-icon">⚠️</span>
+            <span class="error-text">{{ errorMessage() }}</span>
+          </div>
+        }
+
+        <!-- Username Input -->
+        <div class="input-group">
+          <label for="username">Username</label>
+          <div class="input-container">
+            <span class="input-icon">👤</span>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter your username"
+              [ngModel]="username()"
+              (ngModelChange)="username.set($event)"
+              required
+              autocomplete="username"
+              [disabled]="isLoading()"
+            />
+          </div>
+        </div>
+
+        <!-- Password Input -->
+        <div class="input-group">
+          <label for="password">Password</label>
+          <div class="input-container">
+            <span class="input-icon">🔒</span>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              [ngModel]="password()"
+              (ngModelChange)="password.set($event)"
+              required
+              autocomplete="current-password"
+              [disabled]="isLoading()"
+            />
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="submit-btn" [disabled]="isLoading() || !username() || !password()">
+          @if (isLoading()) {
+            <span class="spinner"></span>
+            <span>Logging in...</span>
+          } @else {
+            <span>Sign In</span>
+          }
+        </button>
+      </form>
+
+      <div class="card-footer">
+        <p class="copyright">&copy; 2026 Student Management System. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</div>

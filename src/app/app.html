@@ -1,75 +1,102 @@
-<div class="app-container">
+@if (authService.loading()) {
+  <div class="app-loader-container">
+    <div class="loader-spinner"></div>
+    <p>Loading Workspace...</p>
+  </div>
+} @else if (!authService.isAuthenticated()) {
+  <router-outlet></router-outlet>
+} @else {
+  <div class="app-container">
 
-  <!-- ================================
-       FULL-WIDTH HEADER (Dark Theme)
-       ================================ -->
-  <header class="app-header">
-    <div class="header-left">
-      <span class="brand-icon">🎓</span>
-      <span class="app-title">Student Management System</span>
-      <span class="breadcrumb-separator">/</span>
-      <span class="current-screen">{{ currentScreen() }}</span>
+    <!-- ================================
+         FULL-WIDTH HEADER (Dark Theme)
+         ================================ -->
+    <header class="app-header">
+      <div class="header-left">
+        <span class="brand-icon">🎓</span>
+        <span class="app-title">Student Management System</span>
+        <span class="breadcrumb-separator">/</span>
+        <span class="current-screen">{{ currentScreen() }}</span>
+      </div>
+      
+      <div class="header-right">
+        <!-- User Profile Quick Info -->
+        <div class="user-profile-header">
+          <div class="user-avatar">
+            <span>{{ authService.currentUser()?.username?.[0]?.toUpperCase() || 'U' }}</span>
+          </div>
+          <div class="user-details">
+            <span class="user-name">{{ authService.currentUser()?.username }}</span>
+            <span class="user-role-badge">
+              {{ authService.currentUser()?.roles?.[0]?.replace('ROLE_', '') || 'USER' }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="header-divider"></div>
+
+        <!-- Stylish Logout Button -->
+        <button (click)="logout()" class="logout-action-btn" title="Sign Out">
+          <span class="logout-icon-symbol">🔌</span>
+          <span class="logout-btn-text">Sign Out</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ================================
+         BODY CONTAINER (Sidebar + Main Content)
+         ================================ -->
+    <div class="app-body">
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+
+        <!-- Navigation -->
+        <nav class="sidebar-nav">
+
+          <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
+            <span class="nav-text">Dashboard</span>
+          </a>
+
+          <a routerLink="/admissions" routerLinkActive="active" class="nav-item">
+            <span class="nav-text">Student Admissions</span>
+          </a>
+
+          <a routerLink="/trainer-registration" routerLinkActive="active" class="nav-item">
+            <span class="nav-text">Trainer Registration</span>
+          </a>
+
+          <a routerLink="/centers" routerLinkActive="active" class="nav-item">
+            <span class="nav-text">Training Centers</span>
+          </a>
+
+          <a routerLink="/courses" routerLinkActive="active" class="nav-item">
+            <span class="nav-text">Courses</span>
+          </a>
+
+          <a routerLink="/trainers" routerLinkActive="active" class="nav-item">
+            <span class="nav-text">Trainers</span>
+          </a>
+
+          <a routerLink="/students" routerLinkActive="active" class="nav-item">
+            <span class="nav-text">Students</span>
+          </a>
+
+          <a routerLink="/batches" routerLinkActive="active" class="nav-item">
+            <span class="nav-text">Batches</span>
+          </a>
+
+        </nav>
+
+      </aside>
+
+      <!-- Scrollable Main Content -->
+      <main class="main-content">
+        <router-outlet></router-outlet>
+      </main>
+
     </div>
-    <div class="header-right">
-      <span class="status-indicator">
-        <span class="status-dot"></span>
-        Admin Login
-      </span>
-    </div>
-  </header>
-
-  <!-- ================================
-       BODY CONTAINER (Sidebar + Main Content)
-       ================================ -->
-  <div class="app-body">
-
-    <!-- Sidebar -->
-    <aside class="sidebar">
-
-      <!-- Navigation -->
-      <nav class="sidebar-nav">
-
-        <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
-          <span class="nav-text">Dashboard</span>
-        </a>
-
-        <a routerLink="/admissions" routerLinkActive="active" class="nav-item">
-          <span class="nav-text">Student Admissions</span>
-        </a>
-
-        <a routerLink="/trainer-registration" routerLinkActive="active" class="nav-item">
-          <span class="nav-text">Trainer Registration</span>
-        </a>
-
-        <a routerLink="/centers" routerLinkActive="active" class="nav-item">
-          <span class="nav-text">Training Centers</span>
-        </a>
-
-        <a routerLink="/courses" routerLinkActive="active" class="nav-item">
-          <span class="nav-text">Courses</span>
-        </a>
-
-        <a routerLink="/trainers" routerLinkActive="active" class="nav-item">
-          <span class="nav-text">Trainers</span>
-        </a>
-
-        <a routerLink="/students" routerLinkActive="active" class="nav-item">
-          <span class="nav-text">Students</span>
-        </a>
-
-        <a routerLink="/batches" routerLinkActive="active" class="nav-item">
-          <span class="nav-text">Batches</span>
-        </a>
-
-      </nav>
-
-    </aside>
-
-    <!-- Scrollable Main Content -->
-    <main class="main-content">
-      <router-outlet></router-outlet>
-    </main>
 
   </div>
-
-</div>
+}

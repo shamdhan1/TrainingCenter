@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { AuthService } from './services/auth.service';
 
 @Component({
   imports: [RouterOutlet, RouterLink, RouterLinkActive],
@@ -11,8 +12,13 @@ import { filter } from 'rxjs/operators';
 export class App {
   readonly title = signal('frontend');
   private router = inject(Router);
+  protected authService = inject(AuthService);
 
   protected currentScreen = signal('Dashboard');
+
+  logout() {
+    this.authService.logout();
+  }
 
   constructor() {
     this.router.events.pipe(
