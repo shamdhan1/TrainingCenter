@@ -1,0 +1,363 @@
+<div class="report-wrapper">
+  
+  <!-- Filters Card -->
+  <div class="filter-card">
+    <div class="card-title-bar">
+      <span class="card-icon">📊</span>
+      <h3>Generate Trainer Analytics</h3>
+    </div>
+    
+    <div class="filter-inputs">
+      <!-- Trainer Dropdown -->
+      <div class="filter-group">
+        <label for="trainerSelect">Select Trainer</label>
+        <select 
+          id="trainerSelect" 
+          [ngModel]="selectedTrainerId()" 
+          (ngModelChange)="selectedTrainerId.set($event)"
+          class="form-select"
+        >
+          <option value="" disabled selected>-- Choose Trainer --</option>
+          @for (t of trainers(); track t.trainerId) {
+            <option [value]="t.trainerId">{{ t.name }} ({{ t.employeeCode }})</option>
+          }
+        </select>
+      </div>
+
+      <!-- From Date -->
+      <div class="filter-group">
+        <label for="fromDate">From Date</label>
+        <input 
+          type="date" 
+          id="fromDate" 
+          [ngModel]="fromDate()" 
+          (ngModelChange)="fromDate.set($event)"
+          class="form-control"
+        />
+      </div>
+
+      <!-- To Date -->
+      <div class="filter-group">
+        <label for="toDate">To Date</label>
+        <input 
+          type="date" 
+          id="toDate" 
+          [ngModel]="toDate()" 
+          (ngModelChange)="toDate.set($event)"
+          class="form-control"
+        />
+      </div>
+
+      <!-- Submit -->
+      <div class="filter-actions">
+        <button 
+          (click)="generateReport()" 
+          [disabled]="isLoading() || !selectedTrainerId()" 
+          class="btn-generate"
+        >
+          @if (isLoading()) {
+            <span class="btn-spinner"></span>
+            <span>Generating...</span>
+          } @else {
+            <span>Generate Report</span>
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Alerts -->
+  @if (error()) {
+    <div class="alert alert-danger">
+      <span class="alert-icon">⚠️</span>
+      <p class="alert-message">{{ error() }}</p>
+    </div>
+  }
+
+  <!-- Loading State -->
+  @if (isLoading()) {
+    <div class="report-loader">
+      <div class="spinner-circle"></div>
+      <p>Analyzing trainer metrics, compiling student performance data...</p>
+    </div>
+  }
+
+  <!-- Empty Intro State -->
+  @if (!reportData() && !isLoading() && !error()) {
+    <div class="intro-card">
+      <span class="intro-icon">📈</span>
+      <h3>Trainer Performance & Onboarding Analytics</h3>
+      <p>Select a trainer and specify a date range above to generate a complete visual report of training center attendance, exam grades, growth projections, and student details.</p>
+    </div>
+  }
+
+  <!-- Report Data Dashboard -->
+  @if (reportData() && !isLoading()) {
+    <div class="dashboard-grid animate-fade-in">
+      
+      <!-- Trainer Banner Card -->
+      <div class="banner-card">
+        <div class="banner-profile">
+          <div class="avatar-large">
+            <span>{{ reportData().trainerName?.[0]?.toUpperCase() }}</span>
+          </div>
+          <div class="banner-details">
+            <h2 class="trainer-title">{{ reportData().trainerName }}</h2>
+            <div class="metadata-tags">
+              <span class="tag-badge emp-code">🆔 {{ reportData().employeeCode }}</span>
+              <span class="tag-badge specialization">🛠️ {{ reportData().specialization || 'General Trainer' }}</span>
+              <span class="tag-badge center-name">🏢 {{ reportData().centerName }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="banner-dates">
+          <span class="date-label">Reporting Period</span>
+          <span class="date-range">{{ reportData().fromDate | date:'longDate' }} - {{ reportData().toDate | date:'longDate' }}</span>
+        </div>
+      </div>
+
+      <!-- Summary Metrics Cards -->
+      <div class="metrics-grid">
+        <div class="metric-box bg-box-blue">
+          <div class="metric-header">
+            <span>Total Students</span>
+            <span class="box-icon">👥</span>
+          </div>
+          <h3>{{ reportData().totalStudents }}</h3>
+          <p class="sub-text">Assigned in period</p>
+        </div>
+
+        <div class="metric-box bg-box-green">
+          <div class="metric-header">
+            <span>Active Students</span>
+            <span class="box-icon">🟢</span>
+          </div>
+          <h3>{{ reportData().activeStudents }}</h3>
+          <p class="sub-text">Currently training</p>
+        </div>
+
+        <div class="metric-box bg-box-purple">
+          <div class="metric-header">
+            <span>Passout Students</span>
+            <span class="box-icon">🎓</span>
+          </div>
+          <h3>{{ reportData().passoutStudents }}</h3>
+          <p class="sub-text">Completed successfully</p>
+        </div>
+
+        <div class="metric-box bg-box-orange">
+          <div class="metric-header">
+            <span>Assessments</span>
+            <span class="box-icon">📝</span>
+          </div>
+          <h3>{{ reportData().assessmentsConducted }}</h3>
+          <p class="sub-text">Conducted in period</p>
+        </div>
+      </div>
+
+      <!-- Core Performance Progress Grid -->
+      <div class="performance-card">
+        <div class="panel-header">
+          <h4>Performance Analytics</h4>
+          <span class="overall-badge">Score: {{ reportData().performanceScore | number:'1.0-1' }}/100</span>
+        </div>
+
+        <div class="progress-list">
+          <!-- Pass Rate -->
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>Student Pass Rate</span>
+              <strong>{{ reportData().passRate | number:'1.0-1' }}%</strong>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill fill-green" [style.width.%]="reportData().passRate"></div>
+            </div>
+          </div>
+
+          <!-- Attendance Rate -->
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>Avg Class Attendance</span>
+              <strong>{{ reportData().attendancePercentage | number:'1.0-1' }}%</strong>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill fill-blue" [style.width.%]="reportData().attendancePercentage"></div>
+            </div>
+          </div>
+
+          <!-- Average Marks -->
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>Average Student Marks</span>
+              <strong>{{ reportData().averageMarks | number:'1.0-1' }}%</strong>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill fill-purple" [style.width.%]="reportData().averageMarks"></div>
+            </div>
+          </div>
+
+          <!-- Average Progress -->
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>Syllabus Progress Completion</span>
+              <strong>{{ reportData().averageProgress | number:'1.0-1' }}%</strong>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill fill-orange" [style.width.%]="reportData().averageProgress"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Growth and Delta Panel -->
+      <div class="growth-card">
+        <div class="panel-header">
+          <h4>Period over Period Growth</h4>
+        </div>
+        
+        <div class="growth-list">
+          <!-- Student Growth -->
+          @if (reportData().studentGrowth) {
+            <div class="growth-item">
+              <span class="growth-name">Student Load Growth</span>
+              <div class="growth-values">
+                <span class="prev-val">{{ reportData().studentGrowth.previousValue }} ➡️</span>
+                <span class="curr-val">{{ reportData().studentGrowth.currentValue }}</span>
+                <span 
+                  class="growth-percent" 
+                  [ngClass]="{'growth-up': (reportData().studentGrowth.growthPercentage || 0) >= 0, 'growth-down': (reportData().studentGrowth.growthPercentage || 0) < 0}"
+                >
+                  {{ (reportData().studentGrowth.growthPercentage || 0) >= 0 ? '▲' : '▼' }} 
+                  {{ reportData().studentGrowth.growthPercentage | number:'1.0-1' }}%
+                </span>
+              </div>
+            </div>
+          }
+
+          <!-- Attendance Growth -->
+          @if (reportData().attendanceGrowth) {
+            <div class="growth-item">
+              <span class="growth-name">Attendance Rate Delta</span>
+              <div class="growth-values">
+                <span class="prev-val">{{ reportData().attendanceGrowth.previousValue | number:'1.0-1' }}% ➡️</span>
+                <span class="curr-val">{{ reportData().attendanceGrowth.currentValue | number:'1.0-1' }}%</span>
+                <span 
+                  class="growth-percent" 
+                  [ngClass]="{'growth-up': (reportData().attendanceGrowth.growthPercentage || 0) >= 0, 'growth-down': (reportData().attendanceGrowth.growthPercentage || 0) < 0}"
+                >
+                  {{ (reportData().attendanceGrowth.growthPercentage || 0) >= 0 ? '▲' : '▼' }} 
+                  {{ reportData().attendanceGrowth.growthPercentage | number:'1.0-1' }}%
+                </span>
+              </div>
+            </div>
+          }
+
+          <!-- Pass Rate Growth -->
+          @if (reportData().passRateGrowth) {
+            <div class="growth-item">
+              <span class="growth-name">Student Pass Rate Delta</span>
+              <div class="growth-values">
+                <span class="prev-val">{{ reportData().passRateGrowth.previousValue | number:'1.0-1' }}% ➡️</span>
+                <span class="curr-val">{{ reportData().passRateGrowth.currentValue | number:'1.0-1' }}%</span>
+                <span 
+                  class="growth-percent" 
+                  [ngClass]="{'growth-up': (reportData().passRateGrowth.growthPercentage || 0) >= 0, 'growth-down': (reportData().passRateGrowth.growthPercentage || 0) < 0}"
+                >
+                  {{ (reportData().passRateGrowth.growthPercentage || 0) >= 0 ? '▲' : '▼' }} 
+                  {{ reportData().passRateGrowth.growthPercentage | number:'1.0-1' }}%
+                </span>
+              </div>
+            </div>
+          }
+
+          <!-- Progress Growth -->
+          @if (reportData().progressGrowth) {
+            <div class="growth-item">
+              <span class="growth-name">Syllabus Completion Growth</span>
+              <div class="growth-values">
+                <span class="prev-val">{{ reportData().progressGrowth.previousValue | number:'1.0-1' }}% ➡️</span>
+                <span class="curr-val">{{ reportData().progressGrowth.currentValue | number:'1.0-1' }}%</span>
+                <span 
+                  class="growth-percent" 
+                  [ngClass]="{'growth-up': (reportData().progressGrowth.growthPercentage || 0) >= 0, 'growth-down': (reportData().progressGrowth.growthPercentage || 0) < 0}"
+                >
+                  {{ (reportData().progressGrowth.growthPercentage || 0) >= 0 ? '▲' : '▼' }} 
+                  {{ reportData().progressGrowth.growthPercentage | number:'1.0-1' }}%
+                </span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Students Table Panel -->
+      <div class="students-list-card">
+        <div class="panel-header">
+          <h4>Associated Students details ({{ reportData().students?.length || 0 }})</h4>
+        </div>
+
+        <div class="table-responsive">
+          <table class="students-table">
+            <thead>
+              <tr>
+                <th>Registration No</th>
+                <th>Name</th>
+                <th>Course</th>
+                <th>Status</th>
+                <th>Attendance</th>
+                <th>Avg Marks</th>
+                <th>Progress</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (student of reportData().students; track student.studentId) {
+                <tr>
+                  <td><code>{{ student.registrationNo }}</code></td>
+                  <td><strong>{{ student.studentName }}</strong></td>
+                  <td>{{ student.courseName }}</td>
+                  <td>
+                    <span 
+                      class="status-badge"
+                      [ngClass]="{
+                        'status-active': student.status === 'ACTIVE',
+                        'status-passout': student.status === 'PASSED_OUT',
+                        'status-cancelled': student.status === 'CANCELLED'
+                      }"
+                    >
+                      {{ student.status }}
+                    </span>
+                  </td>
+                  <td>{{ student.attendancePercentage | number:'1.0-1' }}%</td>
+                  <td>{{ student.averageMarks | number:'1.0-1' }}%</td>
+                  <td>
+                    <div class="table-progress-cell">
+                      <div class="mini-progress-bg">
+                        <div class="mini-progress-fill" [style.width.%]="student.progressPercentage"></div>
+                      </div>
+                      <span>{{ student.progressPercentage | number:'1.0-0' }}%</span>
+                    </div>
+                  </td>
+                  <td>
+                    <span 
+                      class="result-badge"
+                      [ngClass]="{'result-pass': student.result === 'PASS', 'result-fail': student.result === 'FAIL'}"
+                    >
+                      {{ student.result || 'PENDING' }}
+                    </span>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="8" class="empty-table-message">No students associated with this trainer for the selected period.</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  }
+
+</div>

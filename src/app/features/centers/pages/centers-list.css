@@ -1,4 +1,13 @@
-/* Centers List View Styles */
-tr:hover {
-  background-color: #f8fafc;
+button:hover:not(:disabled) {
+  opacity: 0.9;
+  border-color: #94a3b8 !important;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }

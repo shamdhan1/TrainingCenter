@@ -46,6 +46,10 @@ export class App {
         return 'Students';
       case 'batches':
         return 'Batches';
+      case 'trainer-registration':
+        return 'Trainer Registration';
+      case 'trainer-reports':
+        return 'Trainer Reports';
       default:
         return 'Dashboard';
     }

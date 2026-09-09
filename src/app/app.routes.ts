@@ -8,6 +8,7 @@ import { BatchesComponent } from './components/batches/batches';
 import { AdmissionsComponent } from './components/admissions/admissions';
 import { TrainerRegistrationComponent } from './components/trainer-registration/trainer-registration';
 import { LoginComponent } from './components/login/login';
+import { TrainerReportsComponent } from './components/trainer-reports/trainer-reports';
 import { authGuard } from './services/auth.guard';
 import { loginGuard } from './services/login.guard';
 
@@ -21,5 +22,6 @@ export const routes: Routes = [
   { path: 'students', component: StudentsComponent, canActivate: [authGuard] },
   { path: 'batches', component: BatchesComponent, canActivate: [authGuard] },
   { path: 'admissions', component: AdmissionsComponent, canActivate: [authGuard] },
-  { path: 'trainer-registration', component: TrainerRegistrationComponent, canActivate: [authGuard] }
+  { path: 'trainer-registration', component: TrainerRegistrationComponent, canActivate: [authGuard] },
+  { path: 'trainer-reports', component: TrainerReportsComponent, canActivate: [authGuard] }
 ];
