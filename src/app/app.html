@@ -59,36 +59,56 @@
             <span class="nav-text">Dashboard</span>
           </a>
 
-          <a routerLink="/admissions" routerLinkActive="active" class="nav-item">
-            <span class="nav-text">Student Admissions</span>
-          </a>
+          <!-- Admin / Center Manager Admissions -->
+          @if (authService.isAdmin() || authService.isCenterManager()) {
+            <a routerLink="/admissions" routerLinkActive="active" class="nav-item">
+              <span class="nav-text">Student Admissions</span>
+            </a>
+          }
 
-          <a routerLink="/trainer-registration" routerLinkActive="active" class="nav-item">
-            <span class="nav-text">Trainer Registration</span>
-          </a>
+          <!-- Admin Only Trainer Registration -->
+          @if (authService.isAdmin()) {
+            <a routerLink="/trainer-registration" routerLinkActive="active" class="nav-item">
+              <span class="nav-text">Trainer Registration</span>
+            </a>
+          }
 
-          <a routerLink="/trainer-reports" routerLinkActive="active" class="nav-item">
-            <span class="nav-text">Trainer Reports</span>
-          </a>
+          <!-- Admin & Trainer Reports -->
+          @if (authService.isAdmin() || authService.isTrainer()) {
+            <a routerLink="/trainer-reports" routerLinkActive="active" class="nav-item">
+              <span class="nav-text">Trainer Reports</span>
+            </a>
+          }
 
-          <a routerLink="/centers" routerLinkActive="active" class="nav-item">
-            <span class="nav-text">Training Centers</span>
-          </a>
+          <!-- Admin & Manager Centers -->
+          @if (authService.isAdmin() || authService.isCenterManager()) {
+            <a routerLink="/centers" routerLinkActive="active" class="nav-item">
+              <span class="nav-text">Training Centers</span>
+            </a>
+          }
 
+          <!-- Courses visible to All -->
           <a routerLink="/courses" routerLinkActive="active" class="nav-item">
             <span class="nav-text">Courses</span>
           </a>
 
-          <a routerLink="/trainers" routerLinkActive="active" class="nav-item">
-            <span class="nav-text">Trainers</span>
-          </a>
+          <!-- Admin & Manager Trainers -->
+          @if (authService.isAdmin() || authService.isCenterManager()) {
+            <a routerLink="/trainers" routerLinkActive="active" class="nav-item">
+              <span class="nav-text">Trainers</span>
+            </a>
+          }
 
-          <a routerLink="/students" routerLinkActive="active" class="nav-item">
-            <span class="nav-text">Students</span>
-          </a>
+          <!-- Admin, Manager & Trainer Students list -->
+          @if (authService.isAdmin() || authService.isCenterManager() || authService.isTrainer()) {
+            <a routerLink="/students" routerLinkActive="active" class="nav-item">
+              <span class="nav-text">Students</span>
+            </a>
+          }
 
+          <!-- Batches visible to All (Admin/Trainer/Student) -->
           <a routerLink="/batches" routerLinkActive="active" class="nav-item">
-            <span class="nav-text">Batches</span>
+            <span class="nav-text">{{ authService.isStudent() ? 'My Batches' : 'Batches' }}</span>
           </a>
 
         </nav>

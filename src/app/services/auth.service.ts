@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap, catchError, throwError, map } from 'rxjs';
 import { Router } from '@angular/router';
@@ -40,6 +40,20 @@ export class AuthService {
   readonly currentUser = signal<UserProfile | null>(null);
   readonly isAuthenticated = signal<boolean>(false);
   readonly loading = signal<boolean>(true);
+
+  // Role helpers
+  readonly isAdmin = computed(() => this.currentUser()?.roles?.includes('ROLE_ADMIN') ?? false);
+  readonly isTrainer = computed(() => this.currentUser()?.roles?.includes('ROLE_TRAINER') ?? false);
+  readonly isStudent = computed(() => this.currentUser()?.roles?.includes('ROLE_STUDENT') ?? false);
+  readonly isCenterManager = computed(() => this.currentUser()?.roles?.includes('ROLE_CENTER_MANAGER') ?? false);
+
+  hasRole(role: string): boolean {
+    return this.currentUser()?.roles?.includes(role) ?? false;
+  }
+
+  hasAnyRole(roles: string[]): boolean {
+    return roles.some(r => this.hasRole(r));
+  }
 
   constructor() {
     this.checkInitialAuth();

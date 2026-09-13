@@ -23,6 +23,19 @@ export class LoginComponent {
   protected errorMessage = signal<string | null>(null);
   protected isLoading = signal<boolean>(false);
 
+  fillCredentials(u: string, p: string) {
+    this.username.set(u);
+    this.password.set(p);
+    this.errorMessage.set(null);
+  }
+
+  quickLogin(u: string, p: string) {
+    this.username.set(u);
+    this.password.set(p);
+    this.errorMessage.set(null);
+    this.onSubmit();
+  }
+
   onSubmit() {
     const userVal = this.username().trim();
     const passVal = this.password();
